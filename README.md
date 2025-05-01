@@ -111,7 +111,7 @@ python eval/quick_squad_eval.py --model ./merged --dataset squad_es
 ```bash
 python train/upload_to_hub.py \
   --model_dir merged \
-  --repo stevenr/deepseek-r1-grpo \
+  --repo PaletLabs/Circe \
   --token $HF_TOKEN
 ```
 

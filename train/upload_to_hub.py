@@ -10,10 +10,9 @@ def main(cfg):
     model = AutoModelForCausalLM.from_pretrained(cfg.model_dir)
 
     print(f"Pushing to https://huggingface.co/{cfg.repo}")
-    model.push_to_hub(cfg.repo,
-                      use_temp_dir=False,   # upload in-place
-                      token=cfg.token)
-    print("✓ Upload complete ✨")
+    model.push_to_hub(cfg.repo,   
+                      token=cfg.token)  
+    print("✓ Upload complete")
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
