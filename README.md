@@ -1,8 +1,80 @@
-![Logo](circe.jpg)
+# Circe-1.5B
 
-# Circe
+<!-- center-aligned, capped at 420 px wide × 240 px tall -->
+<p align="center">
+  <img
+    src="https://cdn-uploads.huggingface.co/production/uploads/657e1ad01e3e9c41a49b732e/8IsJaxuOwuqBN0GctRUUe.png"
+    alt="Circe-1.5B schematic"
+    width="420"
+    height="240"
+  />
+</p>
 
-[ENTER DESCRIPTION HERE]
+
+
+
+
+| ⚙️ Spec | Value |
+|---------|-------|
+| Base model | `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` |
+| Trainable params | 4 M (LoRA) |
+| Post-training cost | **≈ US $12** on 1×L40S |
+| Training recipe | 8 h SFT → 4 h GRPO |
+| Context length | up to **4 k tokens** (tested) |
+| RAM @ bf16 | ~9 GB (≤ 3 GB 4-bit GPTQ) |
+| Throughput | ~55 tok / s on 1×A6000 (fp16, no compile) |
+
+**Circe-1.5B** is a single-checkpoint, 1.5 B-parameter language model that asks a simple question:  
+
+> _“How far can you push tiny models on a tiny budget?”_
+
+It keeps DeepSeek-R1’s strong reasoning depth but adds **fluent bilingual chat** (English & Spanish) in a checkpoint that fits on a laptop GPU.  
+We intend to use it as a reproducible waypoint on the road to real-time speech-to-speech reasoning systems.
+
+---
+
+## 🔭 Intended Use
+
+* **Base for new LoRAs** — domain adaptation, longer-context studies.  
+* **Research** into cost-efficient RL for reasoning.  
+* **Not** for high-stakes or production tasks.
+
+See the [⚙️ Limitations](#️-limitations--bias) section before use.
+
+---
+
+## 💻 Hardware & Inference Tips
+- **bf16 / fp16**: Needs ~9 GB VRAM.  
+- **4-bit GPTQ**: < 3 GB. `bitsandbytes` works out-of-the-box.  
+- Compile once (`torch.compile`) for **+10–15 %** throughput.
+
+---
+
+## ✍️ Current Evaluation Status
+Formal **lighteval / MMLU / GSM-8K** runs are queued. Preliminary spot-checks show Circe retains DeepSeek-R1’s chain-of-thought depth on reasoning-heavy QA while adding smooth bilingual generation.
+
+---
+
+## ⚙️ Limitations & Bias
+- No reward-model alignment. 
+- Long-context (> 4 k) stability untested.  
+- Training data bias from public QA pairs. Spanish coverage favors Latin American variants.  
+- Minimal safety filters so **you** have to wrap with your own guardrails for production.
+
+---
+
+## 🔮 Roadmap
+- Publish full reasoning benchmark suite & eval scripts.  
+- Release code-reasoning and doc-QA adapters.  
+- Attach a **24 kHz neural codec** → real-time, full-duplex voice chat without ASR → TTS hops.
+
+---
+
+## 🪪 License
+This project is licensed under the [MIT](https://opensource.org/licenses/MIT) License. Attribution appreciated but not required.
+
+
+---
 
 ## Installation
 
